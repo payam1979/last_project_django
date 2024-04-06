@@ -1,0 +1,21 @@
+{% load static %}
+{% load blog_tags %}
+{% load humanize %} 
+<div class="single-sidebar-widget popular-post-widget">
+  <h4 class="popular-title">Most Popular Posts</h4>
+  <div class="popular-post-list">
+    {% for post in posts1 %}
+      <div class="single-post-list d-flex flex-row align-items-center">
+        <div class="thumb">
+          <img class="img-fluid"  src="{{ post.image_home.url }}" style = "height: 50px; width: 50px;" alt="" />
+        
+          <a href="{% url 'blog:single' pid=post.id %}"><h6>{{ post.title }}<span class="fa fa-hand-o-right"></span>{{ post.published_date|naturaltime }}</h6></a>
+            
+        </div>
+        <hr>
+      </div>
+      
+    {% endfor %}
+    <div class="signature"></div>
+  </div>
+</div>

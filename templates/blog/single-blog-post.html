@@ -1,38 +1,87 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load blog_tags %}
 {% block content %}
 
 		<!-- Sections -->
 		<div class="sections">
 			<div class="sections-wrapper clearfix">
+			<div class="overlay overlay-bg"></div>
+    			<div class="container">
+     				 <div class="row d-flex align-items-center justify-content-center">
+       					<div class="about-content col-lg-12">
+          					
+          					<p class="text-white link-nav">
+            				<a href="{% url 'website:index' %}">Home</a> <span class="fa fa-arrow-right"></span><a href="{% url 'blog:index' %}">Blog</a> <span class="fa fa-arrow-right"></span> <span>{{post.title}}</span>
+          					</p>
+        				</div>
+      				</div>
+    			</div>
+
+
+			
+				
 
 				<!--Single Blog Post -->
 				<section>
+
+
 					<div class="container">
 						<div class="single-blog-post">
+
+
 							<header class="blog-header clearfix">
 								<div class="content">
-									<span class="date">March 11, 2015</span>
-									<h4>Music Is Help To Relax Body And Mind</h4>
-									<span class="meta"><a href="">7 Comments</a> | <a href="">By Admin</a></span>
+									<!--<span class="date">March 11, 2015</span>-->
+									<h4>{{post.title}}</h4>
+									<!--<span class="meta"><a href="">7 Comments</a> | <a href="">By Admin</a></span> -->
+									<div class="user-details row">
+										<p class="user-name col-lg-12 col-md-12 col-6"><a href="{% url 'website:about' %}">{{post.author.get_full_name}}</a> <span class="fa fa-user"></span></p>
+										<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.published_date|date:'D, d M Y'}}</a> <span class="fa fa-calendar"></span></p>
+										<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{post.counted_view}} views</a> <span class="fa fa-eye"></span></p>
+										<p class="comments col-lg-12 col-md-12 col-6"><a href="#">{% comment_count post.id %} Comments</a> <span class="fa fa-comments"></span></p>	
+										
+											<span><ul class="tags">
+												<!-- {{ post.category.all|join:", "}} -->
+												{% for cat in post.category.all %}
+												  <a href="{% url 'blog:category' cat_name=cat.name %}">{{ cat.name }}</a>{% if not forloop.last %},{% endif %}
+												{% endfor %}
+											  </ul></span>
+											<br>
+											<br>																			
+									</div>
 									<div class="footer">
-										<p class="button-row blog-button-row"><a href="" class="button solid-button dark">Prev</a><a href="" class="button solid-button purple">Next</a></p>
+										<p class="button-row blog-button-row">
+											{% if previous.id != post.id %}
+											<a href="{% url 'blog:single' previous.id %}" class="button solid-button light">Prev</a>
+											{% else %}
+											<a href="#" class="button solid-button purple">First</a>
+											{% endif %}
+											{% if next.id != post.id %}
+											<a href="{% url 'blog:single' next.id %}" class="button solid-button light">Next</a>
+											{% else %}
+											<a href="#" class="button solid-button purple">Last</a>
+											{% endif %}
+										</p>
 									</div>
 								</div> <!-- end .content -->
-								<div class="image" style="background-image: url('{% static 'images/single-blog-post-image.jpg' %}');"></div>
+								<div class="image" ><img  src='{{post.image.url}}' alt="" /></div>
 							</header> <!-- end .blog-header -->
+
+
 							<div class="blog-post">
 								<div class="blog-post-content">
-									<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni saga dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor site amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore manusia magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporlais suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur</p>
-									<blockquote>
-										<p>Nemo enim ipsam voluptatem quiau voluptas sdite aspernatur aut odit aut fugit, sed quia consequun tur magni dolores eosa qui ratione blanditiis praesentium.</p>
-										<footer>Steve Jobs</footer>
-									</blockquote>
-									<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur vero eos et accusamus et iusto odio dignissimos ducomusth qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sintakarl occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum eiar dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-									<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placey eat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibus dalmo aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molstiae non-sec recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores aliasarat consequatur aut perferendis doloribus asperiores repellat</p>
+									<p>{{ post.content }}</p>
+									
 								</div> <!-- end .blog-post-content -->
+
+
+
+
 								<div class="blog-post-comments">
 									<h4>7 Comments</h4>
+
+
 									<div class="comment">
 										<div class="inner clearfix">
 											<div class="image"><img src="{% static 'images/comment01.jpg' %}" alt="alt text" class="img-responsive"></div>
@@ -66,7 +115,14 @@
 											</div> <!-- end .content -->
 										</div> <!-- end .inner -->
 									</div> <!-- end .comment -->
+
+
+
 								</div> <!-- end .blog-post-comments -->
+
+
+
+
 								<div class="leave-comment">
 									<h4>Leave A Comment</h4>
 									<div class="inner">
@@ -84,6 +140,12 @@
 												</div> <!-- end .col-sm-10 -->
 											</div> <!-- end .form-group -->
 											<div class="form-group">
+												<label class="col-sm-2 control-label">Subject</label>
+												<div class="col-sm-10">
+													<input type="text" class="contact-name" name="contact-name" />
+												</div> <!-- end .col-sm-10 -->
+											</div> <!-- end .form-group -->
+											<div class="form-group">
 												<label class="col-sm-2 control-label">Message</label>
 												<div class="col-sm-10">
 													<textarea name="contact-message" class="contact-message" rows="3"></textarea>
@@ -97,17 +159,19 @@
 										</form>
 									</div> <!-- end .inner -->
 								</div> <!-- end .leave-comment -->
+
+
+
 							</div> <!-- end .blog-post -->
+
+
+
+
 							<div class="blog-details">
-								<div class="section">
-									<h5>Author Details</h5>
-									<div class="author">
-										<div class="image"><img src="{% static 'images/author.png' %}" alt="alt text" class="img-responsive"></div>
-										<span class="title">Benjamin Thomson</span>
-										<p>voluptatem accusantium doloremque laudanto tam rem aperiam, eaque ipsa quae. ab illo inventore veritatis et quasi architecto.</p>
-									</div>
-								</div> <!-- end .section -->
-								<div class="section">
+								{% include 'blog/blog-writer.html' %}
+
+
+								<!-- <div class="section">
 									<h5>Share Post</h5>
 									<div class="social-icons">
 										<a href="" class="social-icon"><i class="fa fa-facebook"></i></a>
@@ -115,16 +179,27 @@
 										<a href="" class="social-icon"><i class="fa fa-google-plus"></i></a>
 										<a href="" class="social-icon"><i class="fa fa-behance"></i></a>
 										<a href="" class="social-icon"><i class="fa fa-dribbble"></i></a>
-									</div> <!-- end .social-icons -->
-								</div> <!-- end .section -->
+									</div> --><!-- end .social-icons -->
+								<!--</div>--> <!-- end .section -->
+
+
 								<div class="section">
 									<h5>Tags</h5>
 									<div class="tags"><a href="">Music</a><span>|</span><a href="">Mobile</a><span>|</span><a href="">Tablet</a><span>|</span><a href="">Live</a></div>
 								</div> <!-- end .section -->
+
+								{% popularpost 2 %}
+								
 							</div> <!-- end .blog-details -->
+
+
+
 						</div> <!-- end .single-blog-post -->
 					</div> <!-- end .container -->
 				</section>
+
+
+
 
 			</div> <!-- end .sections-wrapper -->
 		</div> <!-- end .sections -->

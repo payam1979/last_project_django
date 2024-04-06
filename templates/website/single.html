@@ -5,6 +5,16 @@
 		<!-- Sections -->
 		<div class="sections">
 			<div class="sections-wrapper clearfix">
+				<div class="container">
+					<div class="row d-flex align-items-center justify-content-center">
+						 <div class="about-content col-lg-12">
+							
+							<p class="text-white link-nav">
+						  <a href="{% url 'website:index' %}">Home</a> <span class="fa fa-arrow-right"></span><a href="{% url 'website:certificates' %}">Certificates</a> <span class="fa fa-arrow-right"></span> <span>{{certificate.title}}</span>
+							</p>
+					  </div>
+					</div>
+			  </div>
 
 				<!-- Single Portfolio -->
 				<section class="active">
@@ -12,19 +22,16 @@
 						<div class="row">
 							<div class="col-sm-8">
 								<div class="portfolio-slider owl-carousel">
-									<div><img src="{% static 'images/portfolio-slider.jpg' %}" alt="alt text" class="img-responsive"></div>
-									<div><img src="{% static 'images/portfolio-slider.jpg' %}" alt="alt text" class="img-responsive"></div>
-									<div><img src="{% static 'images/portfolio-slider.jpg' %}" alt="alt text" class="img-responsive"></div>
+									<div><img src='{{certificate.image.url}}' alt="alt text" class="img-responsive"></div>
+									<div><img src='{{certificate.image.url}}' alt="alt text" class="img-responsive"></div>
+									
 								</div> <!-- end .portfolio-slider -->
-								<div class="row related-images">
-									<div class="col-sm-6"><a href=""><img src="{% static 'images/portfolio-related01.jpg' %}" alt="alt text" class="img-responsive"></a></div>
-									<div class="col-sm-6"><a href=""><img src="{% static 'images/portfolio-related02.jpg' %}" alt="alt text" class="img-responsive"></a></div>
-								</div> <!-- end .row -->
+								
 							</div> <!-- end .col-sm-8 -->
 							<div class="col-sm-4">
-								<p class="button-row portfolio-button-row"><a href="" class="button solid-button white">Prev Project</a><a href="" class="button solid-button purple">Next Project</a></p>
+								
 								<div class="portfolio-details">
-									<h4>Shopping Bag</h4>
+									<h4>{{certificate.title}}</h4>
 									<p>Omnis iste natus error sit volup taisue mose accusantium doloremque ladain tium, totam rem aperiam, eaque ipama quae ab illo inventore veritatis et qasil architecto beatae vitae. dicta sunt epla cabo. Nemo enim ipsam volupt atemtr quia voluptas aut odit fugit, sed quia consequuntur</p>
 									<div class="portfolio-meta">
 										<span>Date:</span>
@@ -36,7 +43,7 @@
 									</div> <!-- end .portfolio-meta -->
 									<div class="portfolio-meta">
 										<span>Agency:</span>
-										Design Media Wavs
+										{{certificate.institution.name}}
 									</div> <!-- end .portfolio-meta -->
 									<div class="portfolio-meta">
 										<span>Type:</span>

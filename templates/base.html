@@ -39,8 +39,8 @@
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
 					<h4>Just Start Typing Text and Press Enter</h4>
-					<form class="search-form">
-						<input type="text" id="search" name="search" class="text-center" />
+					<form class="search-form" action="{% url 'blog:search' %}">
+						<input placeholder="Search Posts" type="text" id="search" name="s" class="text-center" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'" />
 					</form> <!-- end .search-form -->
 				</div> <!-- end .col-sm-6 -->
 			</div> <!-- end .row -->
@@ -55,17 +55,7 @@
 					<a href="" class="slide-out-share pull-right"><i class="md md-more-vert"></i></a>
 				</div> <!-- end .clearfix -->
 				<!-- Popup -->
-				<div class="slide-out-popup">
-					<nav class="social-nav">
-						<ul class="list-unstyled">
-							<li><a href="">Facebook</a></li>
-							<li><a href="">Twitter</a></li>
-							<li><a href="">Linkedin</a></li>
-							<li><a href="">Google+</a></li>
-							<li><a href="">Behance</a></li>
-						</ul> <!-- end .list-unstyled -->
-					</nav> <!-- end .social-nav -->
-				</div> <!-- end .slide-out-popup -->
+				
 				<div class="image"><img src="{% static 'images/head01.png' %}" alt="alt text" class="img-responsive"></div>
 				<div class="content">
 					<h5>Payam Bagheri</h5>
@@ -89,6 +79,12 @@
 							<label class="col-sm-3 control-label">Email</label>
 							<div class="col-sm-9">
 								<input type="email" class="contact-email" name="contact-email" />
+							</div> <!-- end .col-sm-9 -->
+						</div> <!-- end .form-group -->
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Subject</label>
+							<div class="col-sm-9">
+								<input type="text" class="contact-name" name="contact-name" />
 							</div> <!-- end .col-sm-9 -->
 						</div> <!-- end .form-group -->
 						<div class="form-group">
@@ -125,24 +121,14 @@
 		<!-- Header -->
 		<header class="header">
 			<div class="top clearfix">
-				<a href="#section8" class="available"><i class="ion-ios-email-outline"></i><span>Available For Freelance</span></a>
+				<a href="{% url "website:contact" %}" class="available"><i class="ion-ios-email-outline"></i><span>Available For Freelance</span></a>
 				<div class="right-icons">
 					<a href="" class="open-search header-open-search"><i class="md md-search"></i></a>
-					<a href="" class="download"><i class="md md-file-download"></i></a>
-					<a href="" class="share"><i class="md md-more-vert"></i></a>
+					
+					
 				</div> <!-- end .right-icons -->
 				<!-- Popup -->
-				<div class="popup">
-					<nav class="social-nav">
-						<ul class="list-unstyled">
-							<li><a href="">Facebook</a></li>
-							<li><a href="">Twitter</a></li>
-							<li><a href="">Linkedin</a></li>
-							<li><a href="">Google+</a></li>
-							<li><a href="">Behance</a></li>
-						</ul> <!-- end .list-unstyled -->
-					</nav> <!-- end .social-nav -->
-				</div> <!-- end .popup -->
+				
 			</div> <!-- end .top -->
 			<div class="bottom clearfix">
 				<div class="title"><a href="index.html">P-B-P</a></div>
@@ -152,7 +138,7 @@
 				<a href="" class="responsive-menu-open">Menu <i class="fa fa-bars"></i></a>
 				<nav class="main-nav">
 					<ul class="list-unstyled">
-						<li class="active"><a href="{% url 'website:index' %}">Home</a></li>
+						<li><a href="{% url 'website:index' %}">Home</a></li>
 						<li><a href="{% url 'website:about' %}">About</a></li>
 						<li><a href="{% url 'website:skills' %}">Skill</a></li>
 						<li><a href="{% url 'website:experience' %}">Experience</a></li>
@@ -183,26 +169,27 @@
 					<div class="row">
 						<div class="col-sm-4">
 							<h4>Address</h4>
-							<p>123 Sility, South Corner Street,<br />Melbornem Australia.</p>
+							<p>Corniche Street,<br />Sharjah UAE.</p>
 						</div> <!-- end .col-sm-4 -->
 						<div class="col-sm-4">
 							<h4>Connect</h4>
 							<div class="social-icons">
-								<a href="" class="social-icon"><i class="fa fa-facebook"></i></a>
-								<a href="" class="social-icon"><i class="fa fa-twitter"></i></a>
-								<a href="" class="social-icon"><i class="fa fa-google-plus"></i></a>
-								<a href="" class="social-icon"><i class="fa fa-behance"></i></a>
-								<a href="" class="social-icon"><i class="fa fa-dribbble"></i></a>
+								<a href="https://www.linkedin.com/in/bagheripayam/" class="social-icon"><i class="fa fa-linkedin"></i></a>
+								<a href="https://github.com/payam1979" class="social-icon"><i class="fa fa-github"></i></a>
+								<a href="https://join.skype.com/invite/syuU6iA12Phq" class="social-icon"><i class="fa fa-skype"></i></a>
+								<a href="https://learn.microsoft.com/en-us/users/payambagheri-1444/" class="social-icon"><i class="fa fa-windows"></i></a>
+								
+								
 							</div> <!-- end .social-icons -->
 						</div> <!-- end .col-sm-4 -->
 						<div class="col-sm-4">
 							<h4>Contact</h4>
-							<p>Tel: +61 123-456-7890<br />Mail: Sility@example.com</p>
+							<p>Tel: +971 56-808-7789<br />Mail: bagheri.payam@gmail.com</p>
 						</div> <!-- end .col-sm-4 -->
 					</div> <!-- end .row -->
 				</div> <!-- end .container -->
 			</div> <!-- end .footer -->
-			<div class="bottom">Copyright &copy; Sility. All Rights Reserved.</div> <!-- end .bottom -->
+			<div class="bottom">Copyright &copy; P_B_P. All Rights Reserved.</div> <!-- end .bottom -->
 		</footer> <!-- end .footer -->
 
 		<!-- jQuery -->

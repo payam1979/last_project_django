@@ -1,118 +1,101 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load blog_tags %}
 {% block content %}
+  
+<div>
+	<br>
+	<br>
+	<br>
+</div>
+  <!-- Start post-content Area -->
+  <section class="post-content-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 posts-list">
+          {% for post in posts %}
+            <div class="single-post row">
+              <div class="col-lg-3 col-md-3 meta-details">
+                
+                <div class="user-details row">
+                  <p class="user-name col-lg-12 col-md-12 col-6">
+                    <a href="{% url 'blog:author' author_username=post.author.username %}">{{ post.author.get_full_name }}</a> <span class="lnr lnr-user"></span>
+                  </p>
+                  <p class="date col-lg-12 col-md-12 col-6">
+                    <a href="#">{{ post.published_date|date:'D d M Y' }}</a> <span class="lnr lnr-calendar-full"></span>
+                  </p>
+                  <p class="view col-lg-12 col-md-12 col-6">
+                    <a href="#">{{ post.counted_view }} Views</a> <span class="lnr lnr-eye"></span>
+                  </p>
+                  <p class="comments col-lg-12 col-md-12 col-6">
+                    <a href="{% url 'blog:single' post.id %}">{% comment_count post.id %} Comments</a> <span class="lnr lnr-bubble"></span>
+                  </p>
+				  <ul class="tags">
+					<!-- {{ post.category.all|join:", "}} -->
+					{% for cat in post.category.all %}
+					<a href="{% url 'blog:category' cat_name=cat.name %}">{{ cat.name }}</a>{% if not forloop.last %},{% endif %}
+					{% endfor %}
+				  </ul>
+                </div>
+              </div>
+              <div class="col-lg-9 col-md-9">
+                <div class="feature-img">
+                  <img class="img-fluid" src="{{ post.image_home.url }}" alt="" />
+                </div>
+                <a class="posts-title" href="{% url 'blog:single' post.id %}"><h3>{{ post.title }}</h3></a>
+                <p class="excert">{{ post.content|truncatewords:20 }}</p>
+                <hr>
+              </div>
+            </div>
+			<div class="signature"></div>
+          {% endfor %}
 
-		<!-- Sections -->
-		<div class="sections">
-			<div class="sections-wrapper clearfix">
+		  
+          <nav class="blog-pagination justify-content-center d-flex">
+            <ul class="pagination">
+              {% if posts.has_previous %}
+                <li class="page-item">
+                  <a href="?page={{ posts.previous_page_number }}" class="page-link" aria-label="Previous"><span aria-hidden="true"><span class="fa fa-chevron-left"></span></span></a>
+                </li>
+              {% endif %}
+              {% for i in posts.paginator.page_range %}
+                {% if posts.number == i %}
+                  <li class="page-item active">
+                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                  </li>
+                {% else %}
+                  <li class="page-item">
+                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+              {% if posts.has_next %}
+                <li class="page-item">
+                  <a href="?page={{ posts.next_page_number }}" class="page-link" aria-label="Next"><span aria-hidden="true"><span class="fa fa-chevron-right"></span></span></a>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+        <div class="col-lg-4 sidebar-widgets">
+          <div class="widget-wrap">
+            
 
-				
+            {% include 'blog/blog-writer.html' %}
 
-				<!-- Blog -->
-				<section id="section7">
-					<div class="container">
-						<h2>Blog Post</h2>
-						<div class="blog-posts masonry" id="blog-masonry">
-							<div class="blog-grid-sizer"></div>
-							<div class="blog-post image-left">
-								<div class="inner">
-									<a href="{% url "blog:single"%}"><div class="image" style="background-image: url('{% static 'images/blog-post-image01.jpg' %}');"></div></a>
-									<div class="content">
-										<span class="date">March 14, 2015</span>
-										<h4><a href="{% url "blog:single"%}">We Support Any Type Of Design</a></h4>
-										<footer>
-											<span class="comments-link"><a href="{% url "blog:single"%}">3 Comments</a></span>
-											<span class="share-link"><a href="{% url "blog:single"%}"><i class="fa fa-share-alt"></i></a></span>
-										</footer>
-									</div> <!-- end .content -->
-								</div> <!-- end .inner -->
-							</div> <!-- end .blog-post -->
-							<div class="blog-post">
-								<div class="inner">
-									<div class="content">
-										<span class="date">March 15, 2015</span>
-										<h4><a href="{% url "blog:single"%}">We Give 99% Satisfy In All Work</a></h4>
-										<footer>
-											<span class="comments-link"><a href="{% url "blog:single"%}">7 Comments</a></span>
-											<span class="share-link"><a href="{% url "blog:single"%}"><i class="fa fa-share-alt"></i></a></span>
-										</footer>
-									</div> <!-- end .content -->
-								</div> <!-- end .inner -->
-							</div> <!-- end .blog-post -->
-							<div class="blog-post image-top">
-								<div class="inner">
-									<a href="{% url "blog:single"%}"><div class="image" style="background-image: url('{% static 'images/blog-post-image02.jpg' %}');"></div></a>
-									<div class="content">
-										<span class="date">March 13, 2015</span>
-										<h4><a href="{% url "blog:single"%}">We Won CSS Design Of The Year</a></h4>
-										<footer>
-											<span class="comments-link"><a href="{% url "blog:single"%}">4 Comments</a></span>
-											<span class="share-link"><a href="{% url "blog:single"%}"><i class="fa fa-share-alt"></i></a></span>
-										</footer>
-									</div> <!-- end .content -->
-								</div> <!-- end .inner -->
-							</div> <!-- end .blog-post -->
-							<div class="blog-post image-top">
-								<div class="inner">
-									<a href="{% url "blog:single"%}"><div class="image" style="background-image: url('{% static 'images/blog-post-image03.jpg' %}');"></div></a>
-									<div class="content">
-										<span class="date">March 12, 2015</span>
-										<h4><a href="{% url "blog:single"%}">How to Launch Website Easily</a></h4>
-										<footer>
-											<span class="comments-link"><a href="{% url "blog:single"%}">10 Comments</a></span>
-											<span class="share-link"><a href="{% url "blog:single"%}"><i class="fa fa-share-alt"></i></a></span>
-										</footer>
-									</div> <!-- end .content -->
-								</div> <!-- end .inner -->
-							</div> <!-- end .blog-post -->
-							<div class="blog-post image-right">
-								<div class="inner">
-									<a href="{% url "blog:single"%}"><div class="image" style="background-image: url('{% static 'images/blog-post-image04.jpg' %}');"></div></a>
-									<div class="content">
-										<span class="date">March 11, 2015</span>
-										<h4><a href="{% url "blog:single"%}">Music Is Help To Relax Body And Mind</a></h4>
-										<footer>
-											<span class="comments-link"><a href="{% url "blog:single"%}">5 Comments</a></span>
-											<span class="share-link"><a href="{% url "blog:single"%}"><i class="fa fa-share-alt"></i></a></span>
-										</footer>
-									</div> <!-- end .content -->
-								</div> <!-- end .inner -->
-							</div> <!-- end .blog-post -->
-							<div class="blog-post">
-								<div class="inner">
-									<div class="content">
-										<span class="date">March 10, 2015</span>
-										<h4><a href="{% url "blog:single"%}">We Support any Type of Design</a></h4>
-										<footer>
-											<span class="comments-link"><a href="{% url "blog:single"%}">3 Comments</a></span>
-											<span class="share-link"><a href="{% url "blog:single"%}"><i class="fa fa-share-alt"></i></a></span>
-										</footer>
-									</div> <!-- end .content -->
-								</div> <!-- end .inner -->
-							</div> <!-- end .blog-post -->
-							<div class="blog-post image-left">
-								<div class="inner">
-									<a href="{% url "blog:single"%}"><div class="image" style="background-image: url('{% static 'images/blog-post-image05.jpg' %}');"></div></a>
-									<div class="content">
-										<span class="date">March 9, 2015</span>
-										<h4><a href="{% url "blog:single"%}">Change Your Domain Without Risk</a></h4>
-										<footer>
-											<span class="comments-link"><a href="{% url "blog:single"%}">6 Comments</a></span>
-											<span class="share-link"><a href="{% url "blog:single"%}"><i class="fa fa-share-alt"></i></a></span>
-										</footer>
-									</div> <!-- end .content -->
-								</div> <!-- end .inner -->
-							</div> <!-- end .blog-post -->
-						</div> <!-- end .blog-posts -->
-						<div class="blog-load-more">
-							<a href="{% url "blog:single"%}" class="button solid-button white icon-right">Load More Posts<i class="md-refresh"></i></a>
-						</div> <!-- end .blog-load-more -->
-					</div> <!-- end .container -->
-				</section> <!-- end #section1 -->
+            {% popularpost %}
 
-			
+           
 
-			</div> <!-- end .sections-wrapper -->
-		</div> <!-- end .sections -->
-		
-		{% endblock %}
+            {% categories %}
+
+            {% include 'blog/blog-newsletter.html' %}
+
+           <!--  {% include 'blog/blog-tags.html' %} -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End post-content Area -->
+{% endblock %}
