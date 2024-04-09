@@ -1,0 +1,34 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-sm-4">
+        </div>
+
+        <div class="col-sm-4 text-center">
+          <form class="form-signin" method="post" action="{% url 'accounts:signup' %}">
+            {% csrf_token %}
+            
+            <h1 class="h3 mb-3 font-weight-normal">Please Sign up</h1>
+
+            <input type="text" name="username" class="form-control" placeholder="Username" required >
+            <br>
+            <input type="email" class="form-control" name="email" placeholder="Email address" required>
+            <br>
+            <input type="password" name="password1" class="form-control" placeholder="Password" required>
+           <br>
+            <input type="password" name="password2" class="form-control" placeholder="Confirm Password" required>  
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+          </form>
+        </div>
+
+        <div class="col-sm-4">
+        </div>
+
+      </div>
+    </div>
+{% endblock %}

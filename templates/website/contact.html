@@ -18,42 +18,51 @@
 									<li><i class="ion-ios-location-outline"></i>Corniche Street,<br />Sharjah UAE.</li>
 									<li><i class="ion-iphone"></i>Phone: +971 56 808 7789</li>
 									<li><i class="ion-ios-email-outline"></i>Email: <a href="mailto:example@gmail.com">bagheri.payam@gmail.com</a></li>
-									<li><i class="ion-ios-home-outline"></i>Website: <a href="">payambagheri1979.ir</a></li>
+									<li><i class="ion-ios-home-outline"></i>Website: <a href="https://payambagheri1979.ir" target="_blank">payambagheri1979.ir</a></li>
 								</ul>
 								<div class="spacer"></div>
 								<div class="social-icons">
-									<a href="https://www.linkedin.com/in/bagheripayam/" class="social-icon"><i class="fa fa-linkedin"></i></a>
-									<a href="https://github.com/payam1979" class="social-icon"><i class="fa fa-github"></i></a>
-									<a href="https://join.skype.com/invite/syuU6iA12Phq" class="social-icon"><i class="fa fa-skype"></i></a>
-									<a href="https://learn.microsoft.com/en-us/users/payambagheri-1444/" class="social-icon"><i class="fa fa-windows"></i></a>
+									<a href="https://www.linkedin.com/in/bagheripayam/" class="social-icon" target="_blank"><i class="fa fa-linkedin"></i></a>
+									<a href="https://github.com/payam1979" class="social-icon" target="_blank"><i class="fa fa-github"></i></a>
+									<a href="https://join.skype.com/invite/syuU6iA12Phq" class="social-icon" target="_blank"><i class="fa fa-skype"></i></a>
+									<a href="https://learn.microsoft.com/en-us/users/payambagheri-1444/" class="social-icon" target="_blank"><i class="fa fa-windows"></i></a>
 								</div> <!-- end .social-icons -->
 								<div class="spacer"></div>
 							</div>
 							<div class="col-sm-7">
 								<h5>Contact Form</h5>
-								<form action="scripts/contact.php" method="post" class="form-horizontal contact-form">
+								
+								<form action="{% url 'website:contact' %}" method="post" class="form-horizontal contact-form">
+									{% csrf_token %}
 									<div class="form-group">
+										
 										<label class="col-sm-2 control-label">Name</label>
 										<div class="col-sm-10">
-											<input type="text" class="contact-name" name="contact-name" />
+											<input type="text" class="contact-name" name="name" />
 										</div> <!-- end .col-sm-10 -->
 									</div> <!-- end .form-group -->
 									<div class="form-group">
 										<label class="col-sm-2 control-label">Email</label>
 										<div class="col-sm-10">
-											<input type="email" class="contact-email" name="contact-email" />
+											<input type="email" class="contact-email" name="email" />
 										</div> <!-- end .col-sm-10 -->
 									</div> <!-- end .form-group -->
 									<div class="form-group">
 										<label class="col-sm-2 control-label">Subject</label>
 										<div class="col-sm-10">
-											<input type="text" class="contact-name" name="contact-name" />
+											<input type="text" class="contact-name" name="subject" />
 										</div> <!-- end .col-sm-10 -->
 									</div> <!-- end .form-group -->
 									<div class="form-group">
 										<label class="col-sm-2 control-label">Message</label>
 										<div class="col-sm-10">
-											<textarea name="contact-message" class="contact-message" rows="3"></textarea>
+											<textarea name="message" class="message" rows="3"></textarea>
+										</div> <!-- end .col-sm-10 -->
+									</div> <!-- end .form-group -->
+									
+									<div class="form-group">
+										<div class="col-sm-10 col-sm-offset-2">
+											{{ form.captcha}}
 										</div> <!-- end .col-sm-10 -->
 									</div> <!-- end .form-group -->
 									<div class="form-group">
@@ -73,6 +82,7 @@
 										<span class="message">Error!</span>
 										<button type="button" class="close" data-hide="alert" aria-label="Close"><i class="fa fa-times"></i></button>
 									</div>
+									
 								</form> <!-- end contact-form -->
 							</div>
 						</div>

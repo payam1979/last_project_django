@@ -16,13 +16,13 @@
         {% for post in posts %}
           <div class="single-recent-blog-post item">
             <div class="thumb">
-              <img class="img-fluid" src="{{ post.image.url }}"  alt="" />
+              <img class="img-fluid" src="{{ post.image.url }}" style = "height: 50px; width: 50px;" alt="" />
             </div>
             <div class="details">
               
-              <a href="{% url 'blog:single' pid=post.id %}"><h6 class="title">{{ post.title }}</h6></a>
+              <a href="{% url 'blog:single' pid=post.id %}"><h6>{{ post.title }}<span class="fa fa-hand-o-right"></span>{{ post.published_date|date:'jS F, Y' }}</h6></a>
             
-              <h6 class="date">{{ post.published_date|date:'jS F, Y' }}</h6>
+              
             </div>
           </div>
         {% endfor %}

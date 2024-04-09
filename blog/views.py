@@ -120,7 +120,15 @@ def blog_search(request):
     if request.method == 'GET':
         if s:= request.GET.get('s'):
             posts = posts.filter(content__contains=s)
-     
+            count = len(posts)
+            if count > 0:
+                mes = 'Found' + str(count) + 'posts for your search'
+                messages.add_message(request, messages.SUCCESS, mes)
+            
+            else:
+                messages.add_message(request, messages.ERROR, 'Nothing in posts maches your search')
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                
     
     context = {'posts': posts}
     return render(request, 'blog/blog-home.html', context)

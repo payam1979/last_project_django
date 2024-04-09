@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 {% load blog_tags %}
 {% block content %}
+
 
 		<!-- Sections -->
 		<div class="sections">
@@ -71,7 +73,7 @@
 
 							<div class="blog-post">
 								<div class="blog-post-content">
-									<p>{{ post.content }}</p>
+									<p>{{ post.content|safe }}</p>
 									
 								</div> <!-- end .blog-post-content -->
 
@@ -79,44 +81,27 @@
 
 
 								<div class="blog-post-comments">
-									<h4>7 Comments</h4>
-
+									<h4>{{ comment|length }} Comments</h4>
+									{% for comment1 in comment %}
 
 									<div class="comment">
 										<div class="inner clearfix">
-											<div class="image"><img src="{% static 'images/comment01.jpg' %}" alt="alt text" class="img-responsive"></div>
+											<div class="image"><img src="{% static 'images/comment.png' %}" alt="alt text" class="img-responsive"></div>
 											<div class="content">
-												<h5>Stone Gold</h5>
-												<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placey eat facere possimus, omnis voluptas assumenda est.</p>
-												<span class="meta">25 March 2015 - 9.00AM</span>
-												<a href="" class="reply">Reply<i class="fa fa-reply"></i></a>
+												<h5>{{comment1.name}}</h5>
+												<span class="meta">{{comment1.created_date|naturalday}}</span>
+												<h6>{{comment1.subject}}</h6>
+												<p>{{comment1.message}}</p>
+												
+												
 											</div> <!-- end .content -->
 										</div> <!-- end .inner -->
-										<div class="comment">
-											<div class="inner clearfix">
-												<div class="image"><img src="{% static 'images/comment02.jpg' %}" alt="alt text" class="img-responsive"></div>
-												<div class="content">
-													<h5>Anna Salina</h5>
-													<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placey eat facere possimus, omnis voluptas assumenda est.</p>
-													<span class="meta">25 March 2015 - 9.00AM</span>
-													<a href="" class="reply">Reply<i class="fa fa-reply"></i></a>
-												</div> <!-- end .content -->
-											</div> <!-- end .inner -->
-										</div> <!-- end .comment -->
-									</div> <!-- end .comment -->
-									<div class="comment">
-										<div class="inner clearfix">
-											<div class="image"><img src="{% static 'images/comment03.jpg' %}" alt="alt text" class="img-responsive"></div>
-											<div class="content">
-												<h5>Tom Cruis</h5>
-												<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placey eat facere possimus, omnis voluptas assumenda est.</p>
-												<span class="meta">25 March 2015 - 9.00AM</span>
-												<a href="" class="reply">Reply<i class="fa fa-reply"></i></a>
-											</div> <!-- end .content -->
-										</div> <!-- end .inner -->
+										
 									</div> <!-- end .comment -->
 
-
+									{% empty %}
+									<p>No Comment yet, Be the First</p>
+									{% endfor %}
 
 								</div> <!-- end .blog-post-comments -->
 
@@ -126,34 +111,38 @@
 								<div class="leave-comment">
 									<h4>Leave A Comment</h4>
 									<div class="inner">
-										<form action="single-blog-post.html" method="post" class="form-horizontal">
+										
+
+										<form action="{% url 'blog:single' pid=post.id %}" method="post" class="form-horizontal">
+											{% csrf_token %}
+											<input type="hidden" name="post" value="{{post.id}}">
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Name</label>
 												<div class="col-sm-10">
-													<input type="text" class="contact-name" name="contact-name" />
+													<input type="text" class="contact-name" name="name" />
 												</div> <!-- end .col-sm-10 -->
 											</div> <!-- end .form-group -->
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Email</label>
 												<div class="col-sm-10">
-													<input type="email" class="contact-email" name="contact-email" />
+													<input type="email" class="contact-email" name="email" />
 												</div> <!-- end .col-sm-10 -->
 											</div> <!-- end .form-group -->
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Subject</label>
 												<div class="col-sm-10">
-													<input type="text" class="contact-name" name="contact-name" />
+													<input type="text" class="contact-name" name="subject" />
 												</div> <!-- end .col-sm-10 -->
 											</div> <!-- end .form-group -->
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Message</label>
 												<div class="col-sm-10">
-													<textarea name="contact-message" class="contact-message" rows="3"></textarea>
+													<textarea name="message" class="contact-message" rows="3"></textarea>
 												</div> <!-- end .col-sm-10 -->
 											</div> <!-- end .form-group -->
 											<div class="form-group">
 												<div class="col-sm-10 col-sm-offset-2">
-													<button type="submit" class="button solid-button purple">Send Message</button>
+													<button type="submit" class="button solid-button purple">Post Comment</button>
 												</div> <!-- end .col-sm-10 -->
 											</div> <!-- end .form-group -->
 										</form>
@@ -183,10 +172,10 @@
 								<!--</div>--> <!-- end .section -->
 
 
-								<div class="section">
-									<h5>Tags</h5>
-									<div class="tags"><a href="">Music</a><span>|</span><a href="">Mobile</a><span>|</span><a href="">Tablet</a><span>|</span><a href="">Live</a></div>
+								<div class="">
+									{% include 'blog/blog-tags.html' %}
 								</div> <!-- end .section -->
+								<div class="signature"></div>
 
 								{% popularpost 2 %}
 								

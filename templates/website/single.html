@@ -32,24 +32,20 @@
 								
 								<div class="portfolio-details">
 									<h4>{{certificate.title}}</h4>
-									<p>Omnis iste natus error sit volup taisue mose accusantium doloremque ladain tium, totam rem aperiam, eaque ipama quae ab illo inventore veritatis et qasil architecto beatae vitae. dicta sunt epla cabo. Nemo enim ipsam volupt atemtr quia voluptas aut odit fugit, sed quia consequuntur</p>
 									<div class="portfolio-meta">
 										<span>Date:</span>
-										22 Mar 2015
+										{{certificate.issu_date|date:'d M Y'}}
 									</div> <!-- end .portfolio-meta -->
+									
 									<div class="portfolio-meta">
-										<span>Client:</span>
-										Osambem
-									</div> <!-- end .portfolio-meta -->
-									<div class="portfolio-meta">
-										<span>Agency:</span>
+										<span>Institution:</span>
 										{{certificate.institution.name}}
 									</div> <!-- end .portfolio-meta -->
-									<div class="portfolio-meta">
+									<!-- <div class="portfolio-meta">
 										<span>Type:</span>
 										Branding, Illustrator
-									</div> <!-- end .portfolio-meta -->
-									<p><a href="" class="button solid-button purple">Visit Website</a></p>
+									</div> --> <!-- end .portfolio-meta -->
+									<p><a href="{{certificate.field_name}}" target="_blank" class="button solid-button purple">Visit Website</a></p>
 								</div> <!-- end .portfolio-details -->
 							</div> <!-- end .col-sm-4 -->
 						</div> <!-- end .row -->

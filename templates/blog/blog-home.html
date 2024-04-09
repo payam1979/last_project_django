@@ -40,14 +40,14 @@
               </div>
               <div class="col-lg-9 col-md-9">
                 <div class="feature-img">
-                  <img class="img-fluid" src="{{ post.image_home.url }}" alt="" />
+                  <a href="{% url 'blog:single' post.id %}"><img class="img-fluid" src="{{ post.image_home.url }}" alt="" /></a>
                 </div>
                 <a class="posts-title" href="{% url 'blog:single' post.id %}"><h3>{{ post.title }}</h3></a>
-                <p class="excert">{{ post.content|truncatewords:20 }}</p>
+                <p class="excert">{{ post.content|safe|truncatewords:10 }}</p>
                 <hr>
               </div>
             </div>
-			<div class="signature"></div>
+		<hr>
           {% endfor %}
 
 		  
@@ -83,13 +83,10 @@
 
             {% include 'blog/blog-writer.html' %}
 
-            {% popularpost %}
-
-           
-
             {% categories %}
+            {% popularpost 3 %}
 
-            {% include 'blog/blog-newsletter.html' %}
+            
 
            <!--  {% include 'blog/blog-tags.html' %} -->
           </div>

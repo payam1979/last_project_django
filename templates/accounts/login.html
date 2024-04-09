@@ -1,0 +1,36 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-sm-4">
+        </div>
+
+        <div class="col-sm-4 text-center">
+          <form class="form-signin" method="post" action="{% url 'accounts:login' %}">
+            {% csrf_token %}
+            
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            
+            <input type="text" name="username" class="form-control" placeholder="Username OR Email" required autofocus>
+            <br>
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <div class="checkbox mb-3">
+              
+            </div>
+            <div>
+            {{form.captcha}}
+            </div>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <a href="{% url 'accounts:password_reset'%}" class="link-secondary text-decoration-none">Forgot password</a>
+            
+            <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+          </form>
+        </div>
+        <div class="col-sm-4">
+        </div>
+      </div>
+    </div>
+{% endblock %}
