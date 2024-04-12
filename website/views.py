@@ -19,7 +19,7 @@ def contact_view(request):
    if request.method == 'POST':
       form = contactForm(request.POST)
       if form.is_valid():
-         form.instance.name = 'anonymous'
+         #form.instance.name = 'anonymous'
          form.save()
          messages.add_message(request, messages.SUCCESS, 'we got your ticket')
          return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -50,7 +50,28 @@ def certificates_view(request, **kwargs):
 def single_view(request, pid):
    certificates = Certificates.objects.all()
    certificate = get_object_or_404(certificates,pk=pid)
-   context = {'certificate': certificate}
+   
+   certificates1 = list(certificates)
+   for i in range(0,len(certificates1)):
+      if certificates1[i].id == pid:
+         if i == 0:
+            previous_certificate = certificates1[i+1]
+                    #print(previous_post.id)
+            next_certificate = certificates1[0]
+                    #print(next_post.id) 
+         elif i == len(certificates1)-1:
+            next_certificate = certificates1[i-1]
+                    #print(next_post.id)
+            previous_certificate = certificates1[len(certificates1)-1]
+                    #print(previous_post.id)
+         else:
+           next_certificate = certificates1[i-1]
+                    #print(next_post.id)  
+           previous_certificate = certificates1[i+1]
+                    #print(previous_post.id)    
+                    
+                    
+   context = {'certificate': certificate,'next': next_certificate,'previous': previous_certificate,}
    
    return render(request, 'website/single.html', context)
 
@@ -63,3 +84,4 @@ def newsletter_view(request):
          return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
       else:
         messages.add_message(request, messages.ERROR, 'Something went wrong') 
+        

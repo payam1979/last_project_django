@@ -1,6 +1,8 @@
 from django.urls import path
 from website.views import *
 
+
+
 app_name = 'website'
 
 urlpatterns = [
@@ -16,5 +18,5 @@ urlpatterns = [
     path('certificates', certificates_view, name='certificates'),
     path('certificates/<str:inst_name>', certificates_view, name='certificatesinst'),
     path('newsletter', newsletter_view, name='newsletter'),
-    
+   
 ]

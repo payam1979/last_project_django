@@ -1,6 +1,5 @@
 from django.contrib import admin
 from website.models import contact, Institution, Certificates
-# Register your models here.
 
 
 

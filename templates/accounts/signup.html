@@ -10,7 +10,7 @@
         <div class="col-sm-4 text-center">
           <form class="form-signin" method="post" action="{% url 'accounts:signup' %}">
             {% csrf_token %}
-            
+            <br>
             <h1 class="h3 mb-3 font-weight-normal">Please Sign up</h1>
 
             <input type="text" name="username" class="form-control" placeholder="Username" required >
@@ -22,7 +22,7 @@
             <input type="password" name="password2" class="form-control" placeholder="Confirm Password" required>  
             <br>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+           <br>
           </form>
         </div>
 

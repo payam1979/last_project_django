@@ -14,8 +14,8 @@ class contactForm(forms.ModelForm):
     captcha = CaptchaField()
     class Meta:
         model = contact
-        
-        exclude = ['name']
+        fields = '__all__'
+       # exclude = ['name']
         
         
         

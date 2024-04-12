@@ -21,9 +21,10 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-8">
-								<div class="portfolio-slider owl-carousel">
+								<div class="portfolio-details ">
+									
 									<div><img src='{{certificate.image.url}}' alt="alt text" class="img-responsive"></div>
-									<div><img src='{{certificate.image.url}}' alt="alt text" class="img-responsive"></div>
+									
 									
 								</div> <!-- end .portfolio-slider -->
 								
@@ -47,6 +48,20 @@
 									</div> --> <!-- end .portfolio-meta -->
 									<p><a href="{{certificate.field_name}}" target="_blank" class="button solid-button purple">Visit Website</a></p>
 								</div> <!-- end .portfolio-details -->
+								<div class="footer">
+									<p class="button-row blog-button-row">
+										{% if previous.id != certificate.id %}
+										<a href="{% url 'website:single' previous.id %}" class="button solid-button light">Prev</a>
+										{% else %}
+										<a href="#" class="button solid-button purple">First</a>
+										{% endif %}
+										{% if next.id != certificate.id %}
+										<a href="{% url 'website:single' next.id %}" class="button solid-button light">Next</a>
+										{% else %}
+										<a href="#" class="button solid-button purple">Last</a>
+										{% endif %}
+									</p>
+								</div>
 							</div> <!-- end .col-sm-4 -->
 						</div> <!-- end .row -->
 					</div> <!-- end .container -->

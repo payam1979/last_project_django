@@ -23,7 +23,7 @@
 
 			
 				
-
+				
 				<!--Single Blog Post -->
 				<section>
 
@@ -57,12 +57,12 @@
 											{% if previous.id != post.id %}
 											<a href="{% url 'blog:single' previous.id %}" class="button solid-button light">Prev</a>
 											{% else %}
-											<a href="#" class="button solid-button purple">First</a>
+											<a href=""{% url 'blog:single' post.id %}"" class="button solid-button purple">First</a>
 											{% endif %}
 											{% if next.id != post.id %}
 											<a href="{% url 'blog:single' next.id %}" class="button solid-button light">Next</a>
 											{% else %}
-											<a href="#" class="button solid-button purple">Last</a>
+											<a href=""{% url 'blog:single' post.id %}"" class="button solid-button purple">Last</a>
 											{% endif %}
 										</p>
 									</div>
@@ -116,28 +116,34 @@
 										<form action="{% url 'blog:single' pid=post.id %}" method="post" class="form-horizontal">
 											{% csrf_token %}
 											<input type="hidden" name="post" value="{{post.id}}">
+											{% if request.user.is_authenticated %}
+											<input type="hidden" name="name" value="{{request.user.first_name}}">
+											<input type="hidden" name="email" value="{{request.user.email}}">
+											{% else %}
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Name</label>
 												<div class="col-sm-10">
-													<input type="text" class="contact-name" name="name" />
+													<input type="text" class="contact-name" name="name" required="" />
 												</div> <!-- end .col-sm-10 -->
 											</div> <!-- end .form-group -->
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Email</label>
 												<div class="col-sm-10">
-													<input type="email" class="contact-email" name="email" />
+													<input type="email" class="contact-email" name="email" required=""/>
 												</div> <!-- end .col-sm-10 -->
 											</div> <!-- end .form-group -->
+											{% endif %}
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Subject</label>
 												<div class="col-sm-10">
 													<input type="text" class="contact-name" name="subject" />
 												</div> <!-- end .col-sm-10 -->
 											</div> <!-- end .form-group -->
+
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Message</label>
 												<div class="col-sm-10">
-													<textarea name="message" class="contact-message" rows="3"></textarea>
+													<textarea name="message" class="contact-message" rows="3" required=""></textarea>
 												</div> <!-- end .col-sm-10 -->
 											</div> <!-- end .form-group -->
 											<div class="form-group">
@@ -186,8 +192,7 @@
 						</div> <!-- end .single-blog-post -->
 					</div> <!-- end .container -->
 				</section>
-
-
+				
 
 
 			</div> <!-- end .sections-wrapper -->

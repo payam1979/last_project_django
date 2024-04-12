@@ -14,6 +14,7 @@ from django.http import HttpResponseRedirect
 from accounts.forms import *
 from django.core.mail import send_mail
 from django.conf import settings
+
 # Create your views here.
 
 def login_view(request):
@@ -38,7 +39,8 @@ def login_view(request):
             if user is not None:
                 auth.login(request, user)
                 messages.add_message(request,messages.SUCCESS,'Login was successful')
-                return redirect('/')
+                print(request.path)
+                return redirect(request.path)
             else:
                  messages.add_message(request,messages.ERROR,'The desired person was not found')
         form = LoginForm()         
